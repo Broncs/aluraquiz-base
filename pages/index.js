@@ -1,17 +1,12 @@
 import styled from "styled-components";
 import db from "../db.json";
 import Widget from "../src/components/Widget";
+import Link from "next/link";
+import Button from "../src/components/Button";
 
 import GitHubCorner from "../src/components/GitHubCorner";
 import QuizBackground from "../src/components/QuizBackground";
 import Footer from "../src/components/Footer";
-
-// const BackgroundImage = styled.div`
-//   background-image: url(${db.bg});
-//   flex: 1;
-//   background-size: cover;
-//   background-position: center;
-// `;
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -24,16 +19,30 @@ export const QuizContainer = styled.div`
   }
 `;
 
+export const InputName = styled.input`
+  width: 100%;
+  margin: 1em 0 2em;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.contrastText};
+  outline: none;
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  padding: 0.7em 1em;
+  border-radius: ${({ theme }) => theme.borderRadius};
+`;
+
 export default function Home() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
         <Widget>
           <Widget.Header>
-            <h1>The legend of zelda</h1>
+            <h1>{db.title}</h1>
           </Widget.Header>
           <Widget.Content>
-            <p>lorem ipsum dolor sit amet....</p>
+            <p>{db.description}</p>
+            <InputName placeholder="Diz ai seu nome pra jogar 🤗" />
+
+            <Button text="jogar" linkTo="quiz"></Button>
           </Widget.Content>
         </Widget>
         <Widget>

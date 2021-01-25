@@ -34,6 +34,14 @@ Widget.Header = styled.header`
     margin: 0;
   }
 `;
+Widget.HeaderImage = styled.div`
+  width: 100%;
+  height: 150px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-image: url(${({ backgroundImage }) => backgroundImage});
+  flex: 1;
+`;
 
 Widget.Content = styled.div`
   padding: 24px 32px 32px 32px;
@@ -46,6 +54,18 @@ Widget.Content = styled.div`
   ul {
     list-style: none;
     padding: 0;
+  }
+  li {
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.contrastText};
+    margin: 10px 0;
+    padding: 0.6em;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.primary};
+    }
   }
 `;
 export default Widget;
