@@ -75,6 +75,10 @@ export default function Home() {
             <h1>The legend of zelda</h1>
           </Widget.Header>
           <Widget.Content>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quibusdam, repellat? Quibusdam, repellat?
+            </p>
             <form onSubmit={(e) => {
               e.preventDefault();
               router.push(`/quiz?name=${name}`);
@@ -86,7 +90,15 @@ export default function Home() {
                 }}
                 placeholder="Diz ai seu nome"
               />
-              <button type="submit" disabled={name.length === 0}>Jogar</button>
+              <button
+                type="submit"
+                disabled={name.length === 0}
+                style={{
+                  backgroundColor: !name && 'grey',
+                }}
+              >
+                Jogar
+              </button>
             </form>
 
           </Widget.Content>

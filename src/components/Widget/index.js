@@ -1,3 +1,4 @@
+/* eslint linebreak-style: ["error", "windows"] */
 import styled from 'styled-components';
 
 const Widget = styled.div`
@@ -45,5 +46,33 @@ Widget.Content = styled.div`
     list-style: none;
     padding: 0;
   }
+  input{
+    width: 100%;
+    padding: 10px 16px;
+    outline: none;
+    border: 1px solid  ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.contrastText};
+    background: transparent;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    margin: 6px 0 20px;
+  }
+  button{
+    width: 100%;
+    padding: 10px 16px;
+    cursor: pointer;
+    border: none;
+      color: ${({ theme }) => theme.colors.contrastText};
+     background: ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ theme }) => theme.borderRadius};
+
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+  }
+ span{
+   color: ${({ theme }) => theme.colors.primary};
+ }
 `;
+
 export default Widget;
