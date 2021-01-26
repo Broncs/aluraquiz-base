@@ -1,12 +1,21 @@
-import styled from "styled-components";
-import db from "../db.json";
-import Widget from "../src/components/Widget";
-import Link from "next/link";
-import Button from "../src/components/Button";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
-import GitHubCorner from "../src/components/GitHubCorner";
-import QuizBackground from "../src/components/QuizBackground";
-import Footer from "../src/components/Footer";
+import db from '../db.json';
+import Widget from '../src/components/Widget';
+
+import GitHubCorner from '../src/components/GitHubCorner';
+import QuizBackground from '../src/components/QuizBackground';
+import Footer from '../src/components/Footer';
+
+// const BackgroundImage = styled.div`
+//   background-image: url(${db.bg});
+//   flex: 1;
+//   background-size: cover;
+//   background-position: center;
+// `;
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -19,30 +28,67 @@ export const QuizContainer = styled.div`
   }
 `;
 
-export const InputName = styled.input`
-  width: 100%;
-  margin: 1em 0 2em;
-  background: transparent;
-  color: ${({ theme }) => theme.colors.contrastText};
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.secondary};
-  padding: 0.7em 1em;
-  border-radius: ${({ theme }) => theme.borderRadius};
-`;
-
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = useState('');
+
   return (
     <QuizBackground backgroundImage={db.bg}>
+      <Head>
+        {/* <!-- Primary Meta Tags --> */}
+        <title>Imersão Alura-Next.js</title>
+        <meta name="title" content="Imersão Alura-Next.js" />
+        <meta
+          name="description"
+          content="Projeto baseado em Quiz , Usando o Next.js com Styled-components"
+        />
+
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io/" />
+        <meta property="og:title" content="Imersão Alura-Next.js" />
+        <meta
+          property="og:description"
+          content="Projeto baseado em Quiz , Usando o Next.js com Styled-components"
+        />
+        <meta
+          property="og:image"
+          content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
+        />
+
+        {/* <!-- Twitter --> */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta property="twitter:title" content="Imersão Alura-Next.js" />
+        <meta
+          property="twitter:description"
+          content="Projeto baseado em Quiz , Usando o Next.js com Styled-components"
+        />
+        <meta
+          property="twitter:image"
+          content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
+        />
+      </Head>
       <QuizContainer>
         <Widget>
           <Widget.Header>
-            <h1>{db.title}</h1>
+            <h1>The legend of zelda</h1>
           </Widget.Header>
           <Widget.Content>
-            <p>{db.description}</p>
-            <InputName placeholder="Diz ai seu nome pra jogar 🤗" />
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              router.push(`/quiz?name=${name}`);
+            }}
+            >
+              <input
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                placeholder="Diz ai seu nome"
+              />
+              <button type="submit" disabled={name.length === 0}>Jogar</button>
+            </form>
 
-            <Button text="jogar" linkTo="quiz"></Button>
           </Widget.Content>
         </Widget>
         <Widget>
