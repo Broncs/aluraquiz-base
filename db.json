@@ -5,26 +5,37 @@
   "questions": [
     {
       "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
-      "title": "Como fazer um seletor por id via CSS?",
+      "title": "______ 'Coca-cola' an American company?",
       "description": "Essa é pra aquecer",
-      "answer": 2,
-      "alternatives": [".elemento", "*elemento", "#elemento", "%elemento"]
+      "answer": 1,
+      "alternatives": ["Are", "Is", "The", "Does", "Where"]
     },
     {
       "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
-      "title": "Como fazer um background gradiente com css?",
-      "description": "Faz tempo em haha",
+      "title": "My hair is longer than ______.",
+      "description": "Eai ta achando facil ainda ?",
+      "answer": 1,
+      "alternatives": ["your","hers","your's","she's","her"]
+    },
+    {
+      "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
+      "title": "Whose keys are these? ______ are mine.",
+      "description": "Essa não ta facil .",
       "answer": 0,
-      "alternatives": [
-        "background: linear-gradient(#e66465, #9198e5);",
-        "background: gradient(#e66465, #9198e5);"
-      ]
+      "alternatives": ["They","These","It","Keys","Whose"]
+    },
+    {
+      "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
+      "title": "Were there any beers left in the refrigerator? ______",
+      "description": "Essa não ta facil .",
+      "answer": 2,
+      "alternatives": ["Yes, there will be a few","There are a little","There was not even one","There have been some","There were a little"]
     }
   ],
   "external": [""],
   "theme": {
     "colors": {
-      "primary": "#0d47a1",
+      "primary": "#02B2E4",
       "secondary": "#29b6f6",
       "mainBg": "#171B35",
       "contrastText": "#FFFFFF",
