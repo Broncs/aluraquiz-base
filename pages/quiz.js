@@ -5,6 +5,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TimesCircle } from '@styled-icons/fa-regular/TimesCircle';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
+// adding
+import { useRouter } from 'next/router';
+import LinkRouter from '../src/components/LinkRouter';
 
 import db from '../db.json';
 import Widget from '../src/components/Widget';
@@ -25,36 +28,46 @@ const CorrectIcon = styled(CheckCircle)`
   width: 50px;
 `;
 
-const ResultWidget = ({ results }) => (
-  <Widget>
-    <Widget.Header>Carregando...</Widget.Header>
+const ResultWidget = ({ results, router }) => {
+  const { name } = router.query;
 
-    <Widget.Content>
-      <p>
-        {'Você acertou '}
-        {results.reduce((somatoriaAtual, resultAtual) => {
-          const isAcerto = resultAtual === true;
-          if (isAcerto) {
-            return somatoriaAtual + 1;
-          }
-          return somatoriaAtual;
-        }, 0)}
-        {' perguntas '}
-      </p>
-      <ul>
-        {results.map((result, index) => (
-          <li key={`result__${result}`}>
-            #0
-            {index + 1}
-            {' '}
-            Resultado:
-            {result ? 'Acertou' : 'Errou'}
-          </li>
-        ))}
-      </ul>
-    </Widget.Content>
-  </Widget>
-);
+  return (
+    <Widget>
+      <Widget.Header>Resultado</Widget.Header>
+
+      <Widget.Content>
+        <p>
+          Mandou bem
+          {' '}
+          { name }
+        </p>
+        <h2>
+          {'Você acertou '}
+          {results.reduce((somatoriaAtual, resultAtual) => {
+            const isAcerto = resultAtual === true;
+            if (isAcerto) {
+              return somatoriaAtual + 1;
+            }
+            return somatoriaAtual;
+          }, 0)}
+          {' perguntas '}
+        </h2>
+        <ul>
+          {results.map((result, index) => (
+            <li key={`result__${result}`}>
+              #0
+              {index + 1}
+              {' '}
+              Resultado:
+              {result ? 'Acertou' : 'Errou'}
+            </li>
+          ))}
+        </ul>
+        <LinkRouter href="/" name="Voltar para a home" />
+      </Widget.Content>
+    </Widget>
+  );
+};
 
 const LoadingWidget = () => (
   <Widget>
@@ -162,6 +175,7 @@ export default function QuizPage() {
   const totalQuestions = db.questions.length;
   const [questionIndex, setQuestionIndex] = useState(0);
   const question = db.questions[questionIndex];
+  const router = useRouter();
 
   function addResult(result) {
     setResults([
@@ -201,7 +215,7 @@ export default function QuizPage() {
         {screenState === screenStates.LOADING && <LoadingWidget />}
 
         {screenState === screenStates.RESULT && (
-          <ResultWidget results={results} />
+          <ResultWidget results={results} router={router} />
         )}
       </QuizContainer>
       <GitHubCorner />
