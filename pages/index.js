@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
 import db from '../db.json';
 import Widget from '../src/components/Widget';
 
@@ -63,7 +62,7 @@ export default function Home() {
       <QuizContainer>
         <Widget>
           <Widget.Header>
-            <h1>The legend of zelda</h1>
+            <h1>English Quiz</h1>
           </Widget.Header>
           <Widget.Content>
             <form

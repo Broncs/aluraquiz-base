@@ -2,6 +2,9 @@
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { TimesCircle } from '@styled-icons/fa-regular/TimesCircle';
+import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 
 import db from '../db.json';
 import Widget from '../src/components/Widget';
@@ -11,6 +14,16 @@ import AlternativesForm from '../src/components/AlternativesForm';
 import GitHubCorner from '../src/components/GitHubCorner';
 
 import Button from '../src/components/Button';
+
+const WrongIcon = styled(TimesCircle)`
+  color: ${({ theme }) => theme.colors.wrong};
+  width: 50px;
+  
+`;
+const CorrectIcon = styled(CheckCircle)`
+  color: ${({ theme }) => theme.colors.success};
+  width: 50px;
+`;
 
 const ResultWidget = ({ results }) => (
   <Widget>
@@ -119,9 +132,19 @@ function QuestionWidget({
           {/* <pre>{JSON.stringify(question, null, 4)}</pre> */}
 
           <Button type="submit" disabled={!hasAlternativeSelected}>Confirmar</Button>
-          {isQuestionSubmited && isCorrect && <p>Você acertou !</p>}
+          {isQuestionSubmited && isCorrect && (
+          <div className="Answer">
+            <CorrectIcon />
+            <p>Você acertou !</p>
+          </div>
+          )}
 
-          {!isCorrect && isQuestionSubmited && <p>Você errou!</p>}
+          {!isCorrect && isQuestionSubmited && (
+          <div className="Answer">
+            <WrongIcon />
+            <p>Você errou!</p>
+          </div>
+          )}
         </AlternativesForm>
       </Widget.Content>
     </Widget>

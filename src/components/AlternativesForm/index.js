@@ -19,6 +19,15 @@ const AlternativesForm = styled.form`
   }
   button {
     margin-top: 24px;
+    
+  }
+
+  .Answer{
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 `;
 
