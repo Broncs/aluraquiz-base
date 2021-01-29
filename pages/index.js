@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import db from '../db.json';
 import Widget from '../src/components/Widget';
+import LinkRouter from '../src/components/LinkRouter';
 
 import GitHubCorner from '../src/components/GitHubCorner';
 import QuizBackground from '../src/components/QuizBackground';
@@ -88,7 +89,26 @@ export default function Home() {
         <Widget>
           <Widget.Content>
             <h1>Quizes da Galera</h1>
-            <p>lorem ipsum dolor sit amet....</p>
+            <ul>
+              {db.external.map((linkExterno) => {
+                const [projectName, githubUser] = linkExterno
+                  .replace(/\//g, '')
+                  .replace('https:', '')
+                  .replace('.vercel.app', '')
+                  .split('.');
+
+                return (
+                  <li key={linkExterno}>
+                    <Widget.Topic
+                      as={LinkRouter}
+                      href={`/quiz/${projectName}___${githubUser}`}
+                    >
+                      {`${projectName}/${githubUser}`}
+                    </Widget.Topic>
+                  </li>
+                );
+              })}
+            </ul>
           </Widget.Content>
         </Widget>
         <Footer />

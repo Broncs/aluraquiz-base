@@ -15,31 +15,40 @@
       "title": "My hair is longer than ______.",
       "description": "Eai ta achando facil ainda ?",
       "answer": 1,
-      "alternatives": ["your","hers","your's","she's","her"]
+      "alternatives": ["your", "hers", "your's", "she's", "her"]
     },
     {
       "image": "https://media.giphy.com/media/wKKnvfqzNOzo3Q3TwY/giphy.gif",
       "title": "Whose keys are these? ______ are mine.",
       "description": "Essa não ta facil .",
       "answer": 0,
-      "alternatives": ["They","These","It","Keys","Whose"]
+      "alternatives": ["They", "These", "It", "Keys", "Whose"]
     },
     {
       "image": "https://media.giphy.com/media/2Z6TkQEHTTB4s/giphy.gif",
       "title": "Were there any beers left in the refrigerator? ______",
       "description": "Essa não ta facil .",
       "answer": 2,
-      "alternatives": ["Yes, there will be a few","There are a little","There was not even one","There have been some","There were a little"]
+      "alternatives": [
+        "Yes, there will be a few",
+        "There are a little",
+        "There was not even one",
+        "There have been some",
+        "There were a little"
+      ]
     },
     {
       "image": "https://media.giphy.com/media/bAplZhiLAsNnG/giphy.gif",
       "title": "John's been working there ______ only eight months.",
       "description": "Eu sei que voce consegue !",
       "answer": 2,
-      "alternatives": ["in","by","for","since","from"]
+      "alternatives": ["in", "by", "for", "since", "from"]
     }
   ],
-  "external": [""],
+  "external": [
+    "https://aluraquiz-css.omariosouto.vercel.app/",
+    "https://aluraquiz-marvel.omariosouto.vercel.app/"
+  ],
   "theme": {
     "colors": {
       "primary": "#02B2E4",

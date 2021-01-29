@@ -7,16 +7,17 @@ import { TimesCircle } from '@styled-icons/fa-regular/TimesCircle';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 // adding
 import { useRouter } from 'next/router';
-import LinkRouter from '../src/components/LinkRouter';
+import LinkRouter from '../../components/LinkRouter';
 
-import db from '../db.json';
-import Widget from '../src/components/Widget';
-import QuizBackground from '../src/components/QuizBackground';
-import QuizContainer from '../src/components/QuizContainer';
-import AlternativesForm from '../src/components/AlternativesForm';
-import GitHubCorner from '../src/components/GitHubCorner';
+// import db from '../../../db.json';
+import Widget from '../../components/Widget';
+import QuizBackground from '../../components/QuizBackground';
+import QuizContainer from '../../components/QuizContainer';
+import AlternativesForm from '../../components/AlternativesForm';
+import GitHubCorner from '../../components/GitHubCorner';
 
-import Button from '../src/components/Button';
+import Button from '../../components/Button';
+import BackLinkArrow from '../../components/BackLinkArrow';
 
 const WrongIcon = styled(TimesCircle)`
   color: ${({ theme }) => theme.colors.wrong};
@@ -55,8 +56,7 @@ const ResultWidget = ({ results, router }) => {
             <li key={`result__${result}`}>
               #0
               {index + 1}
-              {' '}
-              Resultado:
+              {' Resultado:'}
               {result ? 'Acertou' : 'Errou'}
             </li>
           ))}
@@ -89,6 +89,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
+        <BackLinkArrow href="/" />
         <h3>{`Pergunta ${questionIndex + 1} de ${totalQuestions}`}</h3>
       </Widget.Header>
       <img
@@ -169,13 +170,14 @@ const screenStates = {
   LOADING: 'LOADING',
   RESULT: 'RESULT',
 };
-export default function QuizPage() {
+export default function QuizPage({ externalQuestions, externalBg }) {
   const [screenState, setScreenState] = useState(screenStates.LOADING);
   const [results, setResults] = useState([]);
-  const totalQuestions = db.questions.length;
+  const totalQuestions = externalQuestions.length;
   const [questionIndex, setQuestionIndex] = useState(0);
-  const question = db.questions[questionIndex];
+  const question = externalQuestions[questionIndex];
   const router = useRouter();
+  const bg = externalBg;
 
   function addResult(result) {
     setResults([...results, result]);
@@ -197,7 +199,7 @@ export default function QuizPage() {
   };
 
   return (
-    <QuizBackground backgroundImage={db.bg}>
+    <QuizBackground backgroundImage={bg}>
       <QuizContainer>
         {screenState === screenStates.QUIZ && (
           <QuestionWidget

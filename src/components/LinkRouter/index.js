@@ -1,18 +1,14 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
-
-const LinkStyled = styled.a`
-  color: ${({ theme }) => theme.colors.secondary};
-  
-`;
 
 // eslint-disable-next-line react/prop-types
-function LinkRouter({ href, name }) {
+function LinkRouter({ children, href, ...props }) {
   return (
     <Link href={href} passHref>
-      <LinkStyled>{name}</LinkStyled>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <a {...props}>{children}</a>
     </Link>
   );
 }
