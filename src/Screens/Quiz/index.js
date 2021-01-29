@@ -18,6 +18,7 @@ import GitHubCorner from '../../components/GitHubCorner';
 
 import Button from '../../components/Button';
 import BackLinkArrow from '../../components/BackLinkArrow';
+import Loader from '../../components/Loader';
 
 const WrongIcon = styled(TimesCircle)`
   color: ${({ theme }) => theme.colors.wrong};
@@ -67,13 +68,6 @@ const ResultWidget = ({ results, router }) => {
   );
 };
 
-const LoadingWidget = () => (
-  <Widget>
-    <Widget.Header>Carregando...</Widget.Header>
-
-    <Widget.Content>[Desafio do Loading]</Widget.Content>
-  </Widget>
-);
 function QuestionWidget({
   question,
   totalQuestions,
@@ -211,7 +205,7 @@ export default function QuizPage({ externalQuestions, externalBg }) {
           />
         )}
 
-        {screenState === screenStates.LOADING && <LoadingWidget />}
+        {screenState === screenStates.LOADING && <Loader />}
 
         {screenState === screenStates.RESULT && (
           <ResultWidget results={results} router={router} />

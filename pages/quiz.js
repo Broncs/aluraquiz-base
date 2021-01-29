@@ -15,6 +15,8 @@ import QuizBackground from '../src/components/QuizBackground';
 import QuizContainer from '../src/components/QuizContainer';
 import AlternativesForm from '../src/components/AlternativesForm';
 import GitHubCorner from '../src/components/GitHubCorner';
+import BackLinkArrow from '../src/components/BackLinkArrow';
+import Loader from '../src/components/Loader';
 
 import Button from '../src/components/Button';
 
@@ -67,13 +69,6 @@ const ResultWidget = ({ results, router }) => {
   );
 };
 
-const LoadingWidget = () => (
-  <Widget>
-    <Widget.Header>Carregando...</Widget.Header>
-
-    <Widget.Content>[Desafio do Loading]</Widget.Content>
-  </Widget>
-);
 function QuestionWidget({
   question,
   totalQuestions,
@@ -89,6 +84,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
+        <BackLinkArrow href="/" />
         <h3>{`Pergunta ${questionIndex + 1} de ${totalQuestions}`}</h3>
       </Widget.Header>
       <img
@@ -184,7 +180,7 @@ export default function QuizPage() {
   useEffect(() => {
     setTimeout(() => {
       setScreenState(screenStates.QUIZ);
-    }, 500);
+    }, 1000);
   }, []);
 
   const handleSubmit = () => {
@@ -209,7 +205,7 @@ export default function QuizPage() {
           />
         )}
 
-        {screenState === screenStates.LOADING && <LoadingWidget />}
+        {screenState === screenStates.LOADING && <Loader />}
 
         {screenState === screenStates.RESULT && (
           <ResultWidget results={results} router={router} />

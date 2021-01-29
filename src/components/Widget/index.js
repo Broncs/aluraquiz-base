@@ -54,6 +54,9 @@ Widget.Content = styled.div`
     list-style: none;
     padding: 0;
   }
+  h2{
+    margin-bottom: 10px;
+  }
   /* li {
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.contrastText};

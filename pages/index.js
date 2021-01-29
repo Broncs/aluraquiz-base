@@ -82,6 +82,7 @@ export default function Home() {
                 router.push(`/quiz?name=${name}`);
               }}
             >
+              <h2>Eai, como está seu ingles ? Teste seus conhecimentos nesse Quiz</h2>
               <Input
                 name="nomeDoUsuario"
                 onChange={(e) => {
