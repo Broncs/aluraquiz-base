@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+import React from 'react';
 import styled from 'styled-components';
 
 // src/components/Footer/index.js

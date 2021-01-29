@@ -54,7 +54,7 @@ Widget.Content = styled.div`
     list-style: none;
     padding: 0;
   }
-  li {
+  /* li {
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.contrastText};
     margin: 10px 0;
@@ -65,7 +65,7 @@ Widget.Content = styled.div`
     &:hover {
       background-color: ${({ theme }) => theme.colors.primary};
     }
-  }
+  } */
 `;
 
 Widget.Topic = styled.a`
