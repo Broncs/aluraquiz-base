@@ -50,7 +50,7 @@ const ResultWidget = ({ results, router }) => {
 
         <Widget.Content>
           <p>
-            Mandou bem
+            {totalCorrect <= 2 ? 'Da pra melhorar ' : 'Mandou Bem '}
             <span className="name-result">
               {' '}
               {name}

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { TimesCircle } from '@styled-icons/fa-regular/TimesCircle';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 // adding
@@ -47,12 +48,21 @@ const ResultWidget = ({ results, router }) => {
   return (
     <>
       <QuizLogo />
-      <Widget>
+      <Widget
+        as={motion.section}
+        transition={{ delay: 0, duration: 0.5 }}
+        variants={{
+          show: { opacity: 1, y: '0' },
+          hidden: { opacity: 0, y: '100%' },
+        }}
+        initial="hidden"
+        animate="show"
+      >
         <Widget.Header>Resultado</Widget.Header>
 
         <Widget.Content>
           <p>
-            Mandou bem
+            {totalCorrect <= 2 ? 'Da pra melhorar ' : 'Mandou Bem '}
             <span className="name-result">
               {' '}
               {name}
