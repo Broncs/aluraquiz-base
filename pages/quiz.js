@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unescaped-entities */
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
@@ -28,9 +29,18 @@ const CorrectIcon = styled(CheckCircle)`
   color: ${({ theme }) => theme.colors.success};
   width: 50px;
 `;
+const WrongIcon2 = styled(TimesCircle)`
+  color: ${({ theme }) => theme.colors.wrong};
+  width: 20px;
+`;
+const CorrectIcon2 = styled(CheckCircle)`
+  color: #feed01;
+  width: 20px;
+`;
 
 const ResultWidget = ({ results, router }) => {
   const { name } = router.query;
+  const totalCorrect = results.filter(Boolean).length;
 
   return (
     <Widget>
@@ -39,31 +49,59 @@ const ResultWidget = ({ results, router }) => {
       <Widget.Content>
         <p>
           Mandou bem
-          {name}
+          <span className="name-result">
+            {' '}
+            {name}
+          </span>
         </p>
         <h2>
           {'Você acertou '}
-          {results.reduce((somatoriaAtual, resultAtual) => {
-            const isAcerto = resultAtual === true;
-            if (isAcerto) {
-              return somatoriaAtual + 1;
-            }
-            return somatoriaAtual;
-          }, 0)}
+          <span className="score-result">
+            {results.reduce((somatoriaAtual, resultAtual) => {
+              const isAcerto = resultAtual === true;
+              if (isAcerto) {
+                return somatoriaAtual + 1;
+              }
+              return somatoriaAtual;
+            }, 0)}
+          </span>
           {' perguntas '}
         </h2>
         <ul>
           {results.map((result, index) => (
-            <li key={`result__${result}`}>
-              #0
-              {index + 1}
-              {' '}
-              Resultado:
-              {result ? 'Acertou' : 'Errou'}
-            </li>
+            <>
+              <li className="single-result" key={`result__${result}`}>
+                #0
+                {index + 1}
+                {' '}
+                Resultado:
+                {result ? ' Acertou' : ' Errou'}
+                {result ? <CorrectIcon2 /> : <WrongIcon2 />}
+              </li>
+            </>
           ))}
         </ul>
-        <LinkRouter href="/" name="Voltar para a home" />
+        {totalCorrect <= 1 && (
+          <>
+            <h3>Parece que estava dificil né, don't worry!</h3>
+            <p>que tal tentar mais uma vez ? 👇🏻</p>
+          </>
+        )}
+        {totalCorrect <= 4 && totalCorrect > 1 && (
+          <>
+            <h3>Parabens, Voce acertou mais que a metade !!</h3>
+            <p>Wanna try one more time ? 👇🏻</p>
+          </>
+        )}
+        {totalCorrect === 5 && (
+          <>
+            <h3>Congratulations, you nailed it !</h3>
+            <p>wanna try new quizzes ? 👇🏻</p>
+          </>
+        )}
+        <LinkRouter className="link-home-results" href="/">
+          Voltar para home
+        </LinkRouter>
       </Widget.Content>
     </Widget>
   );

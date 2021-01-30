@@ -54,9 +54,36 @@ Widget.Content = styled.div`
     list-style: none;
     padding: 0;
   }
-  h2{
+  h2 {
     margin-bottom: 10px;
   }
+  .name-result,
+  .score-result {
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1.3rem;
+  }
+
+  .single-result {
+    display: flex;
+    justify-content: space-between;
+
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.contrastText};
+    margin: 10px 0;
+    padding: 0.6em;
+    border-radius: 4px;
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.primary};
+    }
+  }
+  .link-home-results {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+
   /* li {
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.contrastText};

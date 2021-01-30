@@ -14,18 +14,13 @@ import { Input } from '../src/components/Input';
 import Button from '../src/components/Button';
 import QuizContainer from '../src/components/QuizContainer';
 
-// const BackgroundImage = styled.div`
-//   background-image: url(${db.bg});
-//   flex: 1;
-//   background-size: cover;
-//   background-position: center;
-// `;
 export default function Home() {
   const router = useRouter();
   const [name, setName] = useState('');
 
   return (
     <QuizBackground backgroundImage={db.bg}>
+      {/* //arrumar meta tag================= */}
       <Head>
         {/* <!-- Primary Meta Tags --> */}
         <title>Imersão Alura-Next.js</title>
@@ -82,7 +77,9 @@ export default function Home() {
                 router.push(`/quiz?name=${name}`);
               }}
             >
-              <h2>Eai, como está seu ingles ? Teste seus conhecimentos nesse Quiz</h2>
+              <h2>
+                Eai, como está seu ingles ? Teste seus conhecimentos nesse Quiz
+              </h2>
               <Input
                 name="nomeDoUsuario"
                 onChange={(e) => {
