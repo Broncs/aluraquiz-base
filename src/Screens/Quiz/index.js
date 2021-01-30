@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
@@ -41,7 +42,6 @@ const CorrectIcon2 = styled(CheckCircle)`
 const ResultWidget = ({ results, router }) => {
   const { name } = router.query;
   const totalCorrect = results.filter(Boolean).length;
-
   return (
     <>
       <QuizLogo />
@@ -71,35 +71,20 @@ const ResultWidget = ({ results, router }) => {
           </h2>
           <ul>
             {results.map((result, index) => (
-              <>
-                <li className="single-result" key={`result__${result}`}>
-                  #0
-                  {index + 1}
-                  {' '}
-                  Resultado:
-                  {result ? ' Acertou' : ' Errou'}
-                  {result ? <CorrectIcon2 /> : <WrongIcon2 />}
-                </li>
-              </>
+              <li className="single-result" key={`result__${index}`}>
+                #0
+                {index + 1}
+                {' '}
+                Resultado:
+                {result ? ' Acertou' : ' Errou'}
+                {result ? <CorrectIcon2 /> : <WrongIcon2 />}
+              </li>
             ))}
           </ul>
           {totalCorrect <= 2 && (
             <>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
-              <h3>Parece que estava dificil né, don't worry!</h3>
-              <p>que tal tentar mais uma vez ? 👇🏻</p>
-            </>
-          )}
-          {totalCorrect <= 4 && totalCorrect >= 3 && (
-            <>
-              <h3>Parabens, Voce acertou mais que a metade !!</h3>
-              <p>Wanna try one more time ? 👇🏻</p>
-            </>
-          )}
-          {totalCorrect === 5 && (
-            <>
-              <h3>Congratulations, you nailed it !</h3>
-              <p>wanna try new quizzes ? 👇🏻</p>
+              <h3>Gostou ? tem mais ! 👇🏻</h3>
             </>
           )}
           <LinkRouter className="link-home-results" href="/">
@@ -110,48 +95,6 @@ const ResultWidget = ({ results, router }) => {
     </>
   );
 };
-
-// const ResultWidget = ({ results, router }) => {
-//   const { name } = router.query;
-
-//   return (
-//     <>
-//     <QuizLogo />
-//     <Widget>
-//       <Widget.Header>Resultado</Widget.Header>
-
-//       <Widget.Content>
-//         <p>
-//           Mandou bem
-//           {name}
-//         </p>
-//         <h2>
-//           {'Você acertou '}
-//           {results.reduce((somatoriaAtual, resultAtual) => {
-//             const isAcerto = resultAtual === true;
-//             if (isAcerto) {
-//               return somatoriaAtual + 1;
-//             }
-//             return somatoriaAtual;
-//           }, 0)}
-//           {' perguntas '}
-//         </h2>
-//         <ul>
-//           {results.map((result, index) => (
-//             <li key={`result__${result}`}>
-//               #0
-//               {index + 1}
-//               {' Resultado:'}
-//               {result ? 'Acertou' : 'Errou'}
-//             </li>
-//           ))}
-//         </ul>
-//         <LinkRouter href="/" name="Voltar para a home" />
-//       </Widget.Content>
-//     </Widget>
-//     </>
-//   );
-// };
 
 function QuestionWidget({
   question,
@@ -193,7 +136,7 @@ function QuestionWidget({
               onSubmit();
               setIsQuestionSubmited(false);
               setSelectedAlternative(undefined);
-            }, 3000);
+            }, 2500);
           }}
         >
           {question.alternatives.map((alternative, alternativeIndex) => {
@@ -210,6 +153,7 @@ function QuestionWidget({
               >
                 <input
                   style={{ display: 'none' }}
+                  checked={false}
                   id={alternativeId}
                   name={questionId}
                   type="radio"
@@ -252,8 +196,8 @@ const screenStates = {
 export default function QuizPage({ externalQuestions, externalBg }) {
   const [screenState, setScreenState] = useState(screenStates.LOADING);
   const [results, setResults] = useState([]);
-  const totalQuestions = externalQuestions.length;
   const [questionIndex, setQuestionIndex] = useState(0);
+  const totalQuestions = externalQuestions.length;
   const question = externalQuestions[questionIndex];
   const router = useRouter();
   const bg = externalBg;
@@ -263,9 +207,10 @@ export default function QuizPage({ externalQuestions, externalBg }) {
   }
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setScreenState(screenStates.QUIZ);
-    }, 500);
+    }, 1 * 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSubmit = () => {
@@ -280,14 +225,15 @@ export default function QuizPage({ externalQuestions, externalBg }) {
   return (
     <QuizBackground backgroundImage={bg}>
       <QuizContainer>
-        {screenState === screenStates.QUIZ && (
-          <QuestionWidget
-            question={question}
-            questionIndex={questionIndex}
-            totalQuestions={totalQuestions}
-            onSubmit={handleSubmit}
-            addResult={addResult}
-          />
+        {screenState === screenStates.QUIZ
+          && screenState !== screenStates.RESULT && (
+            <QuestionWidget
+              question={question}
+              questionIndex={questionIndex}
+              totalQuestions={totalQuestions}
+              onSubmit={handleSubmit}
+              addResult={addResult}
+            />
         )}
 
         {screenState === screenStates.LOADING && <Loader />}

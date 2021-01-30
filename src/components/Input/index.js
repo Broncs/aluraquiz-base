@@ -13,6 +13,13 @@ const InputBase = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius};
   outline: 0;
   margin-bottom: 25px;
+
+  &.error{
+    border: 1px solid red;
+  }
+  p{
+    color:red;
+  }
 `;
 
 // eslint-disable-next-line import/prefer-default-export

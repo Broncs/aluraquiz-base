@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 
@@ -47,7 +48,6 @@ const ResultWidget = ({ results, router }) => {
     <>
       <QuizLogo />
       <Widget>
-
         <Widget.Header>Resultado</Widget.Header>
 
         <Widget.Content>
@@ -73,35 +73,33 @@ const ResultWidget = ({ results, router }) => {
           </h2>
           <ul>
             {results.map((result, index) => (
-              <>
-                <li className="single-result" key={`result__${result}`}>
-                  #0
-                  {index + 1}
-                  {' '}
-                  Resultado:
-                  {result ? ' Acertou' : ' Errou'}
-                  {result ? <CorrectIcon2 /> : <WrongIcon2 />}
-                </li>
-              </>
+              <li className="single-result" key={`result__${index}`}>
+                #0
+                {index + 1}
+                {' '}
+                Resultado:
+                {result ? ' Acertou' : ' Errou'}
+                {result ? <CorrectIcon2 /> : <WrongIcon2 />}
+              </li>
             ))}
           </ul>
           {totalCorrect <= 2 && (
-          <>
-            <h3>Parece que estava dificil né, don't worry!</h3>
-            <p>que tal tentar mais uma vez ? 👇🏻</p>
-          </>
+            <>
+              <h3>Parece que estava dificil né, don't worry!</h3>
+              <p>que tal tentar mais uma vez ? 👇🏻</p>
+            </>
           )}
           {totalCorrect <= 4 && totalCorrect >= 3 && (
-          <>
-            <h3>Parabens, Voce acertou mais que a metade !!</h3>
-            <p>Wanna try one more time ? 👇🏻</p>
-          </>
+            <>
+              <h3>Parabens, Voce acertou mais que a metade !!</h3>
+              <p>Wanna try one more time ? 👇🏻</p>
+            </>
           )}
           {totalCorrect === 5 && (
-          <>
-            <h3>Congratulations, you nailed it !</h3>
-            <p>wanna try new quizzes ? 👇🏻</p>
-          </>
+            <>
+              <h3>Congratulations, you nailed it !</h3>
+              <p>wanna try new quizzes ? 👇🏻</p>
+            </>
           )}
           <LinkRouter className="link-home-results" href="/">
             Voltar para home
@@ -152,7 +150,7 @@ function QuestionWidget({
               onSubmit();
               setIsQuestionSubmited(false);
               setSelectedAlternative(undefined);
-            }, 3000);
+            }, 2500);
           }}
         >
           {question.alternatives.map((alternative, alternativeIndex) => {
@@ -168,7 +166,7 @@ function QuestionWidget({
                 data-status={isQuestionSubmited && alternativeStatus}
               >
                 <input
-                  // style={{ display: 'none' }}
+                  style={{ display: 'none' }}
                   id={alternativeId}
                   name={questionId}
                   type="radio"
@@ -210,10 +208,10 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 export default function QuizPage() {
-  const [screenState, setScreenState] = useState(screenStates.RESULT);
-  const [results, setResults] = useState([true, true, false, false, false]);
-  const totalQuestions = db.questions.length;
+  const [screenState, setScreenState] = useState(screenStates.LOADING);
+  const [results, setResults] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const totalQuestions = db.questions.length;
   const question = db.questions[questionIndex];
   const router = useRouter();
 
@@ -222,9 +220,10 @@ export default function QuizPage() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      // setScreenState(screenStates.QUIZ);
-    }, 1000);
+    const timer = setTimeout(() => {
+      setScreenState(screenStates.QUIZ);
+    }, 1 * 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSubmit = () => {
@@ -239,14 +238,15 @@ export default function QuizPage() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
-        {screenState === screenStates.QUIZ && (
-          <QuestionWidget
-            question={question}
-            questionIndex={questionIndex}
-            totalQuestions={totalQuestions}
-            onSubmit={handleSubmit}
-            addResult={addResult}
-          />
+        {screenState === screenStates.QUIZ
+          && screenState !== screenStates.RESULT && (
+            <QuestionWidget
+              question={question}
+              questionIndex={questionIndex}
+              totalQuestions={totalQuestions}
+              onSubmit={handleSubmit}
+              addResult={addResult}
+            />
         )}
 
         {screenState === screenStates.LOADING && <Loader />}

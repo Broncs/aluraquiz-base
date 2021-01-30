@@ -83,6 +83,10 @@ Widget.Content = styled.div`
     text-decoration: none;
     color: ${({ theme }) => theme.colors.secondary};
   }
+  .error-message {
+    margin: -10px 0 10px;
+    color: red;
+  }
 
   /* li {
     background-color: ${({ theme }) => theme.colors.secondary};

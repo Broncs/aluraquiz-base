@@ -18,6 +18,7 @@ import QuizLogo from '../src/components/Logo';
 export default function Home() {
   const router = useRouter();
   const [name, setName] = useState('');
+  const [fillName, setFillName] = useState(false);
 
   return (
     <QuizBackground backgroundImage={db.bg}>
@@ -83,13 +84,18 @@ export default function Home() {
                 Eai, como está seu ingles ? Teste seus conhecimentos nesse Quiz
               </h2>
               <Input
+                className={fillName && 'error'}
                 name="nomeDoUsuario"
                 onChange={(e) => {
                   setName(e.target.value);
+                  if (name.length > 0) {
+                    setFillName(false);
+                  }
                 }}
                 placeholder="Diz ai seu nome"
                 value={name}
               />
+              {fillName && <p className="error-message">Por favor adicione um nome</p>}
               <Button type="submit" disabled={name.length === 0}>
                 {`Jogar ${name}`}
               </Button>
@@ -121,6 +127,13 @@ export default function Home() {
                     <Widget.Topic
                       as={LinkRouter}
                       queryName={name}
+                      onClick={() => {
+                        if (name.length === 0) {
+                          setFillName(true);
+                        } else {
+                          setFillName(false);
+                        }
+                      }}
                       href={`/quiz/${projectName}___${githubUser}`}
                     >
                       {`${projectName}/${githubUser}`}

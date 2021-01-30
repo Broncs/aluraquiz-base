@@ -12,7 +12,10 @@ function LinkRouter({
   ...props
 }) {
   return (
-    <Link href={{ pathname: href, query: { name: queryName } }} passHref>
+    <Link
+      href={{ pathname: queryName ? href : '/', query: { name: queryName } }}
+      passHref
+    >
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a {...props}>{children}</a>
     </Link>
