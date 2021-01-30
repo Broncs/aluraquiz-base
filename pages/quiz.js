@@ -18,6 +18,7 @@ import AlternativesForm from '../src/components/AlternativesForm';
 import GitHubCorner from '../src/components/GitHubCorner';
 import BackLinkArrow from '../src/components/BackLinkArrow';
 import Loader from '../src/components/Loader';
+import QuizLogo from '../src/components/Logo';
 
 import Button from '../src/components/Button';
 
@@ -43,67 +44,71 @@ const ResultWidget = ({ results, router }) => {
   const totalCorrect = results.filter(Boolean).length;
 
   return (
-    <Widget>
-      <Widget.Header>Resultado</Widget.Header>
+    <>
+      <QuizLogo />
+      <Widget>
 
-      <Widget.Content>
-        <p>
-          Mandou bem
-          <span className="name-result">
-            {' '}
-            {name}
-          </span>
-        </p>
-        <h2>
-          {'Você acertou '}
-          <span className="score-result">
-            {results.reduce((somatoriaAtual, resultAtual) => {
-              const isAcerto = resultAtual === true;
-              if (isAcerto) {
-                return somatoriaAtual + 1;
-              }
-              return somatoriaAtual;
-            }, 0)}
-          </span>
-          {' perguntas '}
-        </h2>
-        <ul>
-          {results.map((result, index) => (
-            <>
-              <li className="single-result" key={`result__${result}`}>
-                #0
-                {index + 1}
-                {' '}
-                Resultado:
-                {result ? ' Acertou' : ' Errou'}
-                {result ? <CorrectIcon2 /> : <WrongIcon2 />}
-              </li>
-            </>
-          ))}
-        </ul>
-        {totalCorrect <= 1 && (
+        <Widget.Header>Resultado</Widget.Header>
+
+        <Widget.Content>
+          <p>
+            Mandou bem
+            <span className="name-result">
+              {' '}
+              {name}
+            </span>
+          </p>
+          <h2>
+            {'Você acertou '}
+            <span className="score-result">
+              {results.reduce((somatoriaAtual, resultAtual) => {
+                const isAcerto = resultAtual === true;
+                if (isAcerto) {
+                  return somatoriaAtual + 1;
+                }
+                return somatoriaAtual;
+              }, 0)}
+            </span>
+            {' perguntas '}
+          </h2>
+          <ul>
+            {results.map((result, index) => (
+              <>
+                <li className="single-result" key={`result__${result}`}>
+                  #0
+                  {index + 1}
+                  {' '}
+                  Resultado:
+                  {result ? ' Acertou' : ' Errou'}
+                  {result ? <CorrectIcon2 /> : <WrongIcon2 />}
+                </li>
+              </>
+            ))}
+          </ul>
+          {totalCorrect <= 2 && (
           <>
             <h3>Parece que estava dificil né, don't worry!</h3>
             <p>que tal tentar mais uma vez ? 👇🏻</p>
           </>
-        )}
-        {totalCorrect <= 4 && totalCorrect > 1 && (
+          )}
+          {totalCorrect <= 4 && totalCorrect >= 3 && (
           <>
             <h3>Parabens, Voce acertou mais que a metade !!</h3>
             <p>Wanna try one more time ? 👇🏻</p>
           </>
-        )}
-        {totalCorrect === 5 && (
+          )}
+          {totalCorrect === 5 && (
           <>
             <h3>Congratulations, you nailed it !</h3>
             <p>wanna try new quizzes ? 👇🏻</p>
           </>
-        )}
-        <LinkRouter className="link-home-results" href="/">
-          Voltar para home
-        </LinkRouter>
-      </Widget.Content>
-    </Widget>
+          )}
+          <LinkRouter className="link-home-results" href="/">
+            Voltar para home
+          </LinkRouter>
+        </Widget.Content>
+      </Widget>
+    </>
   );
 };
 
@@ -163,10 +168,11 @@ function QuestionWidget({
                 data-status={isQuestionSubmited && alternativeStatus}
               >
                 <input
-                  style={{ display: 'none' }}
+                  // style={{ display: 'none' }}
                   id={alternativeId}
                   name={questionId}
                   type="radio"
+                  checked={false}
                   onChange={() => setSelectedAlternative(alternativeIndex)}
                 />
                 {alternative}
@@ -204,8 +210,8 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 export default function QuizPage() {
-  const [screenState, setScreenState] = useState(screenStates.LOADING);
-  const [results, setResults] = useState([]);
+  const [screenState, setScreenState] = useState(screenStates.RESULT);
+  const [results, setResults] = useState([true, true, false, false, false]);
   const totalQuestions = db.questions.length;
   const [questionIndex, setQuestionIndex] = useState(0);
   const question = db.questions[questionIndex];
@@ -217,7 +223,7 @@ export default function QuizPage() {
 
   useEffect(() => {
     setTimeout(() => {
-      setScreenState(screenStates.QUIZ);
+      // setScreenState(screenStates.QUIZ);
     }, 1000);
   }, []);
 

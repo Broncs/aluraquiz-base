@@ -13,6 +13,7 @@ import Footer from '../src/components/Footer';
 import { Input } from '../src/components/Input';
 import Button from '../src/components/Button';
 import QuizContainer from '../src/components/QuizContainer';
+import QuizLogo from '../src/components/Logo';
 
 export default function Home() {
   const router = useRouter();
@@ -57,6 +58,7 @@ export default function Home() {
         />
       </Head>
       <QuizContainer>
+        <QuizLogo />
         <Widget
           as={motion.section}
           transition={{ delay: 0, duration: 0.5 }}
@@ -118,6 +120,7 @@ export default function Home() {
                   <li key={linkExterno}>
                     <Widget.Topic
                       as={LinkRouter}
+                      queryName={name}
                       href={`/quiz/${projectName}___${githubUser}`}
                     >
                       {`${projectName}/${githubUser}`}

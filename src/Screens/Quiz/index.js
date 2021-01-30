@@ -19,6 +19,7 @@ import GitHubCorner from '../../components/GitHubCorner';
 import Button from '../../components/Button';
 import BackLinkArrow from '../../components/BackLinkArrow';
 import Loader from '../../components/Loader';
+import QuizLogo from '../../components/Logo';
 
 const WrongIcon = styled(TimesCircle)`
   color: ${({ theme }) => theme.colors.wrong};
@@ -28,45 +29,129 @@ const CorrectIcon = styled(CheckCircle)`
   color: ${({ theme }) => theme.colors.success};
   width: 50px;
 `;
+const WrongIcon2 = styled(TimesCircle)`
+  color: ${({ theme }) => theme.colors.wrong};
+  width: 20px;
+`;
+const CorrectIcon2 = styled(CheckCircle)`
+  color: #feed01;
+  width: 20px;
+`;
 
 const ResultWidget = ({ results, router }) => {
   const { name } = router.query;
+  const totalCorrect = results.filter(Boolean).length;
 
   return (
-    <Widget>
-      <Widget.Header>Resultado</Widget.Header>
+    <>
+      <QuizLogo />
+      <Widget>
+        <Widget.Header>Resultado</Widget.Header>
 
-      <Widget.Content>
-        <p>
-          Mandou bem
-          {name}
-        </p>
-        <h2>
-          {'Você acertou '}
-          {results.reduce((somatoriaAtual, resultAtual) => {
-            const isAcerto = resultAtual === true;
-            if (isAcerto) {
-              return somatoriaAtual + 1;
-            }
-            return somatoriaAtual;
-          }, 0)}
-          {' perguntas '}
-        </h2>
-        <ul>
-          {results.map((result, index) => (
-            <li key={`result__${result}`}>
-              #0
-              {index + 1}
-              {' Resultado:'}
-              {result ? 'Acertou' : 'Errou'}
-            </li>
-          ))}
-        </ul>
-        <LinkRouter href="/" name="Voltar para a home" />
-      </Widget.Content>
-    </Widget>
+        <Widget.Content>
+          <p>
+            Mandou bem
+            <span className="name-result">
+              {' '}
+              {name}
+            </span>
+          </p>
+          <h2>
+            {'Você acertou '}
+            <span className="score-result">
+              {results.reduce((somatoriaAtual, resultAtual) => {
+                const isAcerto = resultAtual === true;
+                if (isAcerto) {
+                  return somatoriaAtual + 1;
+                }
+                return somatoriaAtual;
+              }, 0)}
+            </span>
+            {' perguntas '}
+          </h2>
+          <ul>
+            {results.map((result, index) => (
+              <>
+                <li className="single-result" key={`result__${result}`}>
+                  #0
+                  {index + 1}
+                  {' '}
+                  Resultado:
+                  {result ? ' Acertou' : ' Errou'}
+                  {result ? <CorrectIcon2 /> : <WrongIcon2 />}
+                </li>
+              </>
+            ))}
+          </ul>
+          {totalCorrect <= 2 && (
+            <>
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              <h3>Parece que estava dificil né, don't worry!</h3>
+              <p>que tal tentar mais uma vez ? 👇🏻</p>
+            </>
+          )}
+          {totalCorrect <= 4 && totalCorrect >= 3 && (
+            <>
+              <h3>Parabens, Voce acertou mais que a metade !!</h3>
+              <p>Wanna try one more time ? 👇🏻</p>
+            </>
+          )}
+          {totalCorrect === 5 && (
+            <>
+              <h3>Congratulations, you nailed it !</h3>
+              <p>wanna try new quizzes ? 👇🏻</p>
+            </>
+          )}
+          <LinkRouter className="link-home-results" href="/">
+            Voltar para home
+          </LinkRouter>
+        </Widget.Content>
+      </Widget>
+    </>
   );
 };
+
+// const ResultWidget = ({ results, router }) => {
+//   const { name } = router.query;
+
+//   return (
+//     <>
+//     <QuizLogo />
+//     <Widget>
+//       <Widget.Header>Resultado</Widget.Header>
+
+//       <Widget.Content>
+//         <p>
+//           Mandou bem
+//           {name}
+//         </p>
+//         <h2>
+//           {'Você acertou '}
+//           {results.reduce((somatoriaAtual, resultAtual) => {
+//             const isAcerto = resultAtual === true;
+//             if (isAcerto) {
+//               return somatoriaAtual + 1;
+//             }
+//             return somatoriaAtual;
+//           }, 0)}
+//           {' perguntas '}
+//         </h2>
+//         <ul>
+//           {results.map((result, index) => (
+//             <li key={`result__${result}`}>
+//               #0
+//               {index + 1}
+//               {' Resultado:'}
+//               {result ? 'Acertou' : 'Errou'}
+//             </li>
+//           ))}
+//         </ul>
+//         <LinkRouter href="/" name="Voltar para a home" />
+//       </Widget.Content>
+//     </Widget>
+//     </>
+//   );
+// };
 
 function QuestionWidget({
   question,
