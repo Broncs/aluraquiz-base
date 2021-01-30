@@ -29,10 +29,8 @@ export async function getServerSideProps(context) {
     })
     .then((respostaConvertidaEmObjeto) => respostaConvertidaEmObjeto)
     .catch((err) => {
-      console.error(err);
+      throw new Error(err);
     });
-
-  console.log(dbExterno);
   return {
     props: {
       dbExterno,
