@@ -87,19 +87,6 @@ Widget.Content = styled.div`
     margin: -10px 0 10px;
     color: red;
   }
-
-  /* li {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.contrastText};
-    margin: 10px 0;
-    padding: 0.6em;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.primary};
-    }
-  } */
 `;
 
 Widget.Topic = styled.a`
