@@ -21,6 +21,7 @@ import GitHubCorner from '../src/components/GitHubCorner';
 import BackLinkArrow from '../src/components/BackLinkArrow';
 import Loader from '../src/components/Loader';
 import QuizLogo from '../src/components/Logo';
+import DropDots from '../src/components/DropDots';
 
 import Button from '../src/components/Button';
 
@@ -79,7 +80,7 @@ const ResultWidget = ({ results, router }) => {
                 return somatoriaAtual;
               }, 0)}
             </span>
-            {' perguntas '}
+            {` pergunta${totalCorrect === 1 ? '' : 's'} `}
           </h2>
           <ul>
             {results.map((result, index) => (
@@ -119,6 +120,18 @@ const ResultWidget = ({ results, router }) => {
     </>
   );
 };
+
+const LoadingScreen = () => (
+  <Widget>
+    <Widget.Header>
+      {'Carregando '}
+      <DropDots />
+    </Widget.Header>
+    <Widget.Content style={{ height: '300px' }}>
+      <Loader />
+    </Widget.Content>
+  </Widget>
+);
 
 function QuestionWidget({
   question,
@@ -258,14 +271,15 @@ export default function QuizPage() {
               addResult={addResult}
             />
         )}
-
-        {screenState === screenStates.LOADING && <Loader />}
+        {screenState === screenStates.LOADING && <LoadingScreen />}
 
         {screenState === screenStates.RESULT && (
           <ResultWidget results={results} router={router} />
         )}
       </QuizContainer>
-      <GitHubCorner projectUrl="https://github.com/Broncs/aluraquiz-base" />
+      {screenState === screenStates.RESULT && (
+        <GitHubCorner projectUrl="https://github.com/Broncs/aluraquiz-base" />
+      )}
     </QuizBackground>
   );
 }

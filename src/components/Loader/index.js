@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 const StyledLoader = styled.div`
   position: absolute;
-  top: 30%;
-  left: 20%;
-  /* transform: translate(-50%, -50%); */
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
   width: 50px;
   height: 10px;
   background: #333;

@@ -43,6 +43,7 @@ Widget.HeaderImage = styled.div`
 `;
 
 Widget.Content = styled.div`
+  position: relative;
   padding: 24px 32px 32px 32px;
   & > *:first-child {
     margin-top: 0;
