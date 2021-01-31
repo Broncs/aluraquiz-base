@@ -66,14 +66,14 @@ Widget.Content = styled.div`
   .single-result {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.contrastText};
     margin: 10px 0;
     padding: 0.6em;
     border-radius: 4px;
     &:hover {
-      background-color: ${({ theme }) => theme.colors.primary};
+      opacity: 0.8;
     }
   }
   .link-home-results {
